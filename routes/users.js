@@ -3,7 +3,7 @@ const UserController = require('../controllers/userController');
 
 //Ruta para mostrar los usuarios
 router.get('/', UserController.getUsers);
-router.post('/nuevo', UserController.newUsers);
+router.post('/', UserController.newUsers);
 router.delete('/', UserController.deleteUsers);
 
 

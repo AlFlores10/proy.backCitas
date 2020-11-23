@@ -12,12 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.User)
+      this.belongsTo(models.User, {
+        as: 'Doctor',
+        foreignKey: 'DoctorId'
+    })
     }
   };
   Citas.init({
-    id_user: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER,
     fecha: DataTypes.DATE,
-    id_doctor: DataTypes.INTEGER,
+    DoctorId: DataTypes.INTEGER,
     observaciones: DataTypes.STRING
   }, {
     sequelize,

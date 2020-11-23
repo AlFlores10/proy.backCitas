@@ -8,13 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_user: {
+      UserId: {
         type: Sequelize.INTEGER
       },
       fecha: {
         type: Sequelize.DATE
       },
-      id_doctor: {
+      DoctorId: {
         type: Sequelize.INTEGER
       },
       observaciones: {

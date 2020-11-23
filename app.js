@@ -5,10 +5,12 @@ const cors = require('cors');
 const PORT = 3000;
 
 const UsersRoutes = require('./routes/users');
+const CitasRoutes = require('./routes/citas');
 
 //Middlewares
 app.use(cors());
 app.use(express.json());
+
 
 //Routes
 app.get('/', (req, res) => {
@@ -16,12 +18,14 @@ app.get('/', (req, res) => {
 });
 
 app.use('/usuarios', UsersRoutes);
+app.use('/citas', CitasRoutes);
 
 
 //Servidor
 app.listen(PORT, () => {
     console.log(`Escuchando en el puerto ${PORT}`);
-})
+});
+
 
 //Conexion BBDD
 const conexion = mysql.createConnection({
