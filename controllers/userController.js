@@ -1,5 +1,7 @@
 const { User, sequelize } = require('../models/index.js');
-const bcrypt = require ('bcryptjs');
+const bcrypt = require('bcryptjs');
+const moment = require('moment');
+const jwt = require('jwt-simple');
 
 
 // module.exports.getUsers = (req, res) => {
@@ -29,7 +31,7 @@ module.exports.getUsers = async (req, res) => {
 
 module.exports.newUsers = async (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, 10);
-    
+
     try {
         const nuevoUsuario = await User.create({
             name: req.body.name,
@@ -75,3 +77,31 @@ module.exports.deleteUsers = async (req, res) => {
     }
 
 };
+
+
+module.exports.loginUsers = async (req, res) => {
+
+    const user = await User.findOne({ where: { email: req.body.email } });
+    if (user) {
+        const iguales = bcrypt.compareSync(req.body.password, user.password);
+        if (iguales) {
+            res.json({ sucess: createToken(user) });
+
+        } else {
+            res.json({ error: 'Error en usuario y/o contraseña' });
+        }
+
+    } else {
+        res.json({ error: 'Error en usuario y/o contraseña' });
+    }
+};
+
+const createToken = (user) => {
+    const payload = {
+        usuarioId: user.id,
+        createdAt: moment().unix(),
+        expiredAt: moment().add(59, 'minutes').unix()
+    }
+
+    return jwt.encode(payload, 'elsecretodemigato');
+}
