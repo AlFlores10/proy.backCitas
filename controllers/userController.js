@@ -1,5 +1,4 @@
 const { User, sequelize } = require('../models/index.js');
-const mysql = require('mysql2');
 
 
 // module.exports.getUsers = (req, res) => {
@@ -24,7 +23,8 @@ module.exports.getUsers = async (req, res) => {
             message: 'Ha habido un problema tratando de recuperar los usuarios'
         });
     }
-}
+};
+
 
 module.exports.newUsers = async (req, res) => {
     try {
@@ -47,7 +47,28 @@ module.exports.newUsers = async (req, res) => {
 };
 
 
-module.exports.deleteUsers = (req, res) => {
-    console.log(req.body);
-    res.send('DELETE /usuarios/:id');
+module.exports.deleteUsers = async (req, res) => {
+    try {
+        const email = await User.destroy({
+            where: {
+                email: req.body.email
+            }
+        });
+
+        if (!email) {
+            return res.status(400).send({
+                message: 'Email no encontrado'
+            })
+        };
+
+        res.send({
+            message: 'Usuario eliminado correctamente'
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: 'Ha habido un problema al borrar el usuario'
+        });
+    }
+
 };
