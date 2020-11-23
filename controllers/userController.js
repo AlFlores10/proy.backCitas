@@ -2,15 +2,29 @@ const { User, sequelize } = require('../models/index.js');
 const mysql = require('mysql2');
 
 
-// module.exports.getUsers =  (req, res) => {
-//     const usuarios = UserModel.findAll({ attributes: ['name', 'password', 'email', 'role'] });
-//     res.json(usuarios);
+// module.exports.getUsers = (req, res) => {
+//     User.findAll()
+//         .then(users => res.send(users))
+//         .catch(error => {
+//             console.error(error);
+//             res.status(500).send({
+//                 message: 'Ha habido un problema tratando de recuperar los users'
+//             })
+//         })
 // };
 
-module.exports.getUsers = (req, res) => {
-    res.send('GET / usuarios/TODOS');
-};
+module.exports.getUsers = async (req, res) => {
+    try {
+        const resultado = await User.findAll();
+        res.json({ resultado });
 
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: 'Ha habido un problema tratando de recuperar los usuarios'
+        });
+    }
+}
 
 module.exports.newUsers = async (req, res) => {
     try {
