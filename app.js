@@ -3,6 +3,7 @@ const app = express();
 const mysql = require('mysql2/promise');
 const cors = require('cors');
 const PORT = process.env.PORT || 3000;
+const auth = require('./middlewares/auth');
 
 const UsersRoutes = require('./routes/users');
 const CitasRoutes = require('./routes/citas');
@@ -18,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', UsersRoutes);
-app.use('/citas', CitasRoutes);
+app.use('/citas', auth.checkToken, CitasRoutes);
 
 
 //Servidor
