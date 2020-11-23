@@ -34,7 +34,7 @@ Lista de tecnologías utilizadas en el proyecto:
 ## Repositories
 ***
 > * [Repositorio GitHub](https://github.com/AlFlores10/proy.backCitas.git): 
-> * [Repositorio Heroku](): 
+> * [Repositorio Heroku](https://sequelize2.herokuapp.com/): 
 > * [Alberto Flores Martínez](https://github.com/AlFlores10)
 
 
