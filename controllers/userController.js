@@ -1,4 +1,5 @@
 const { User, sequelize } = require('../models/index.js');
+const bcrypt = require ('bcryptjs');
 
 
 // module.exports.getUsers = (req, res) => {
@@ -27,6 +28,8 @@ module.exports.getUsers = async (req, res) => {
 
 
 module.exports.newUsers = async (req, res) => {
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
+    
     try {
         const nuevoUsuario = await User.create({
             name: req.body.name,

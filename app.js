@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql2/promise');
 const cors = require('cors');
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const UsersRoutes = require('./routes/users');
 const CitasRoutes = require('./routes/citas');
@@ -14,10 +14,10 @@ app.use(express.json());
 
 //Routes
 app.get('/', (req, res) => {
-    res.send('proyecto backend');
+    res.send('proyecto backend sequelize mysql');
 });
 
-app.use('/usuarios', UsersRoutes);
+app.use('/users', UsersRoutes);
 app.use('/citas', CitasRoutes);
 
 
